@@ -103,8 +103,11 @@ exports.find = function(req, res) {
 
 //list all the database contents.
 exports.list = function(req, res) {
-    db.itemsDb.list({include_docs: true}, function(err, body/*, headers*/) {
+    
+    db.itemsDb.list({include_docs: true}, function(err, body/*, headers*/) {  
 	    if (!err) {
+
+            console.log("Body:",body);
 	        res.send(body);
 	        return;
 	    }
