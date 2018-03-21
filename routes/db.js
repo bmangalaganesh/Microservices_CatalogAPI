@@ -1,5 +1,10 @@
 /*eslint-env node */
-var cloudant = require('cloudant')(cloudantService.credentials.url);
+//var cloudant = require('cloudant')(cloudantService.credentials.url);
+
+//Harcode the Cloudant info here for the moment.
+var cloudantCredentialURL = "https://83cedfc5-80b3-4ee5-bc06-e00773515deb-bluemix:420dffe7af0ea8d059ff47da3bd98b99c3ba9cfb3f77bec1aeca50c152d5024b@83cedfc5-80b3-4ee5-bc06-e00773515deb-bluemix.cloudant.com";
+var cloudant = require('cloudant')(cloudantCredentialURL);
+
 exports.cloudant = cloudant;
 var itemsDb = cloudant.use('items');
 exports.itemsDb = itemsDb;
