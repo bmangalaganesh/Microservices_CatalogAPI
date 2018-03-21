@@ -36,22 +36,24 @@ console.log("appEnv.port:", appEnv.port);
 
 console.log("Process Env Variables:", process.env);
 
-var processPort = process.env.PORT || appEnv.port;
+var processPort = appEnv.port;
 
 if (appEnv.isLocal){
    //if the app is running on Azure as a Web App, the PWD is going to be PWD: '/home/site/wwwroot',
-   if (process.env.PWD === '/home/site/wwwroot'){
-     console.log('Running on Azure as a Web App...');
+    if (process.env.PWD === '/home/site/wwwroot'){
+      processPort = process.env.PORT;
+      console.log('Running on Azure as a Web App...');
    }
    else{
      console.log('Running locally possibly on a desktop/laptop.. (not on CF or Azure Web App)');
    }
-  
+
+app.listen(processPort);
+console.log('App started on ' + ':' + appEnv.port);
 }
 else{
+    console.log('App running on CF - started on ' + ':' + appEnv.port);
     app.listen(appEnv.port, appEnv.bind);
     
 }
 
-app.listen(processPort);
-console.log('App started on ' + ':' + appEnv.port);
