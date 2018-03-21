@@ -9,6 +9,8 @@ var appEnv = cfenv.getAppEnv();
 console.log("What is appEnv:", appEnv);
 
 cloudantService = appEnv.getService("myMicroservicesCloudant");
+console.log("cloudantService::", appEnv.getService("myMicroservicesCloudant"));
+
 var items = require('./routes/items');
 
 //Setup middleware.
@@ -29,5 +31,16 @@ app.post('/items', items.create);
 app.put('/items/:id', items.update);
 app.delete('/items/:id', items.remove);
 
-app.listen(appEnv.port, appEnv.bind);
-console.log('App started on ' + appEnv.bind + ':' + appEnv.port);
+console.log("appEnv.bind:", appEnv.bind);
+console.log("appEnv.port:", appEnv.port);
+
+console.log("Process Env Variables:", process.env);
+if (appEnv.isLocal){
+   
+  app.listen(appEnv.port, appEnv.bind);
+  console.log('App Started on ' + appEnv.bind + ':' + appEnv.port + ' running locally');
+}
+else{
+    app.listen(appEnv.port, appEnv.bind);
+    console.log('App started on ' + appEnv.bind + ':' + appEnv.port);
+}
